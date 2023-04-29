@@ -14,7 +14,6 @@ class UserController extends Controller
     {
         $userProfile = new User();
         $userProfile->fill($request->validated());
-
         if ($request->hasFile('profile_image')) {
             $userProfile->profile_image = $request->file('profile_image')->store('profile', 'public');
         }
@@ -50,9 +49,7 @@ class UserController extends Controller
         if ($userProfile->profile_image) {
             Storage::disk('public')->delete('profile/' . $userProfile->profile_image);
         }
-
         $userProfile->delete();
-
         return response()->json([], 204);
     }
 }
